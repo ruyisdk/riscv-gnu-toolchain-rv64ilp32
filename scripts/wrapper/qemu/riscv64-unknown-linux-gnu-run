@@ -13,5 +13,10 @@ done
 xlen="$(march-to-cpu-opt --elf-file-path $1 --print-xlen)"
 qemu_cpu="$(march-to-cpu-opt --elf-file-path $1 --print-qemu-cpu)"
 
-QEMU_CPU="${qemu_cpu}" qemu-riscv${xlen} -r 5.10 "${qemu_args[@]}" \
+if [ "$xlen" = "32" ] && [ "$qemu_cpu" = "rv64" ]; then
+    QEMU_CPU="${qemu_cpu}" qemu-riscv64ilp${xlen} -r 5.10 "${qemu_args[@]}" \
   -L ${RISC_V_SYSROOT} "$@"
+else
+    QEMU_CPU="${qemu_cpu}" qemu-riscv${xlen} -r 5.10 "${qemu_args[@]}" \
+  -L ${RISC_V_SYSROOT} "$@"
+fi

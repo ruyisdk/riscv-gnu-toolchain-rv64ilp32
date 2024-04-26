@@ -3880,10 +3880,10 @@ fi
 
 
 if test "x$enable_qemu_system" != xno; then :
-  qemu_targets=riscv64-linux-user,riscv32-linux-user,riscv64-softmmu,riscv32-softmmu
+  qemu_targets=riscv64-linux-user,riscv32-linux-user,riscv64-softmmu,riscv32-softmmu,riscv64ilp32-linux-user,riscv64ilp32-softmmu
 
 else
-  qemu_targets=riscv64-linux-user,riscv32-linux-user
+  qemu_targets=riscv64-linux-user,riscv32-linux-user,riscv64ilp32-linux-user
 
 fi
 

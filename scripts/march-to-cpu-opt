@@ -45,6 +45,12 @@ CPU_OPTIONS = {
   "extensions":      [],
 }
 
+ELF_HEADER = {
+  "e_flags":         "",
+}
+
+EF_RISCV_X32 =  0x0020
+
 SUPPORTTED_EXTS = "iemafdcbvph"
 MC_EXT_PREFIX = "zsx"
 
@@ -159,7 +165,10 @@ def get_elen(ext_dict, xlen):
 
 def print_qemu_cpu():
     cpu_options = []
-    cpu_options.append("rv{0}".format(CPU_OPTIONS['xlen']))
+    if ELF_HEADER["e_flags"] & EF_RISCV_X32 != 0:
+        cpu_options.append("rv{0}".format(64))
+    else:
+        cpu_options.append("rv{0}".format(CPU_OPTIONS['xlen']))
 
     if CPU_OPTIONS['vlen']:
         cpu_options.append("vlen={0}".format(CPU_OPTIONS['vlen']))
@@ -218,13 +227,14 @@ def selftest():
 def open_elf(path):
     try:
         elffile = elftools.elf.elffile.ELFFile(open(path, 'rb'))
+        ELF_HEADER["e_flags"] = elffile.header["e_flags"]
     except elftools.common.exceptions.ELFError:
         raise Exception("%s is not ELF file!" % path)
     return elffile
 
 def get_xlen(path):
     elffile = open_elf(path)
-    return 64
+    return elffile.elfclass
 
 def read_arch_attr (path):
     elffile = open_elf(path)

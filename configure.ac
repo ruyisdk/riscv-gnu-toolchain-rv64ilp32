@@ -315,7 +315,7 @@ AC_ARG_ENABLE(qemu_system,
 	)
 
 AS_IF([test "x$enable_qemu_system" != xno],
-	[AC_SUBST(qemu_targets, [riscv64-linux-user,riscv32-linux-user,riscv64-softmmu,riscv32-softmmu])],
-	[AC_SUBST(qemu_targets, [riscv64-linux-user,riscv32-linux-user])])
+        [AC_SUBST(qemu_targets, [riscv64-linux-user,riscv64ilp32-linux-user,riscv32-linux-user,riscv64-softmmu,riscv64ilp32-softmmu,riscv32-softmmu])],
+	[AC_SUBST(qemu_targets, [riscv64-linux-user,riscv32-linux-user,riscv64ilp32-linux-user])])
 
 AC_OUTPUT

@@ -73,7 +73,7 @@ jobs:
           sudo mkdir -p /opt/riscv/qemu-linux/
           sudo cp -v demo /opt/riscv/qemu-linux/
           # Test the demo
-          qemu-riscv64 /opt/riscv/qemu-linux/demo
+          qemu-riscv64ilp32 /opt/riscv/qemu-linux/demo
           # Copy demo code
           sudo cp -v qemu-linux/hello_world.c /opt/riscv/qemu-linux/
 

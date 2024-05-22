@@ -12,12 +12,13 @@ RUYISDK RV64ILP32 GNU工具链说明
 
 基于RV64ILP32工具链构建的新32位Linux内核，ramdisk-fio 提升 40%，loopback-iperf3 提升 15%
 
-内核下载 https://github.com/T-head-Semi/linux/actions
+内核下载: https://github.com/ruyisdk/linux-xuantie-kernel/actions
+    
 
 内核构建：
 
-    git clone https://github.com/T-head-Semi/linux.git -b linux-6.6
-    cd linux-6.6
+    git clone https://github.com/ruyisdk/linux-xuantie-kernel.git linux
+    cd linux
     make ARCH=riscv CROSS_COMPILE=<YOUR PATH>/riscv/bin/riscv64-unknown-elf- rv64ilp32_defconfig all
 
 (ps: 本ELF工具链支持构建Linux内核，支持VDSO编译)

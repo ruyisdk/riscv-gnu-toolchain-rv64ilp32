@@ -4,45 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  activity-check:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    outputs:
-      stale: ${{ steps.activity_check.outputs.stale }}
-    steps:
-      - name:  Activity check
-        id: activity_check
-        run:   |
-          curl -sL https://api.github.com/repos/$GITHUB_REPOSITORY/commits | jq -r '[.[]][0]' > $HOME/commit.json
-          date="$(jq -r '.commit.author.date' $HOME/commit.json)"
-          timestamp=$(date --utc -d "$date" +%s)
-          author="$(jq -r '.commit.author.name' $HOME/commit.json)"
-          url="$(jq -r '.html_url' $HOME/commit.json)"
-          hours=$(( ( $(date --utc +%s) - $timestamp ) / 3600 ))
-          rm -f $HOME/commit.json
-          echo "Latest Repository activity : $timestamp $author $url"
-
-          STALE=false
-          if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
-              echo "[WARNING] Ignoring activity limits : workflow triggered manually"
-          else
-              echo Repository active last $hours hours ago
-              if [ $hours -ge 24 ]; then
-                echo "[ERROR] Repository not updated : event<${{ github.event_name }}> not allowed to modify stale repository"
-                STALE=true
-              fi
-          fi
-          echo "stale=$STALE" >> $GITHUB_OUTPUT
-
-          if [ "$STALE" == "true" ]; then
-            exit 1
-          fi
-        shell: bash
-
-
   build:
-    needs: activity-check
-    if: needs.activity-check.outputs.stale != 'true'
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -94,7 +56,7 @@ jobs:
           sudo mkdir -p /opt/riscv/qemu-linux/
           sudo cp -v demo /opt/riscv/qemu-linux/
           # Test the demo
-          qemu-riscv64 /opt/riscv/qemu-linux/demo
+          qemu-riscv64ilp32 /opt/riscv/qemu-linux/demo
           # Copy demo code
           sudo cp -v qemu-linux/hello_world.c /opt/riscv/qemu-linux/
 

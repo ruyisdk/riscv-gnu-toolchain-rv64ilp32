@@ -19,8 +19,8 @@
 	branch = master
 [submodule "gdb"]
 	path = gdb
-	url = https://sourceware.org/git/binutils-gdb.git
-	branch = gdb-14-branch
+	url = https://github.com/ruyisdk/riscv-binutils.git
+	branch = gdb-14.1
 [submodule "qemu"]
 	path = qemu
 	url = https://github.com/ruyisdk/qemu.git

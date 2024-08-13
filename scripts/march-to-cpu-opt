@@ -49,7 +49,7 @@ ELF_HEADER = {
   "e_flags":         "",
 }
 
-EF_RISCV_X32 =  0x0020
+EF_RISCV_N32 =  0x0020
 
 SUPPORTTED_EXTS = "iemafdcbvph"
 MC_EXT_PREFIX = "zsx"
@@ -165,7 +165,7 @@ def get_elen(ext_dict, xlen):
 
 def print_qemu_cpu():
     cpu_options = []
-    if ELF_HEADER["e_flags"] & EF_RISCV_X32 != 0:
+    if ELF_HEADER["e_flags"] & EF_RISCV_N32 != 0:
         cpu_options.append("rv{0}".format(64))
     else:
         cpu_options.append("rv{0}".format(CPU_OPTIONS['xlen']))

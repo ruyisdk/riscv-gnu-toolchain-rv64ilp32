@@ -913,6 +913,7 @@ stamps/build-qemu: $(QEMU_SRCDIR) $(QEMU_SRC_GIT)
 		--prefix=$(INSTALL_DIR) \
 		--target-list=$(QEMU_TARGETS) \
 		--interp-prefix=$(INSTALL_DIR)/sysroot \
+		--enable-slirp \
 		--python=python3
 	$(MAKE) -C $(notdir $@)
 	$(MAKE) -C $(notdir $@) install

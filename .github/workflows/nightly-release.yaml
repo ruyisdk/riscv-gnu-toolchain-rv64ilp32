@@ -88,7 +88,7 @@ jobs:
           esac
           echo "TOOLCHAIN_NAME=riscv$BITS-$MODE-${{ matrix.os }}-${{ matrix.compiler }}-nightly" >> $GITHUB_OUTPUT
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.toolchain-name-generator.outputs.TOOLCHAIN_NAME }}
           path: riscv.tar.gz
@@ -133,7 +133,7 @@ jobs:
           prerelease: true
 
       - name: Download Built Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           path: ${{ env.ARTIFACTS_DIR }}
 
@@ -174,7 +174,7 @@ jobs:
     name: upload ${{ matrix.artifact }}
     steps:
 
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4
         with:
           name: ${{ matrix.artifact }}
 

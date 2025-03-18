@@ -3,14 +3,13 @@ RUYISDK RV64ILP32 GNU工具链说明
 
 欢迎使用RV64ILP32工具链，你可以从 [release](https://github.com/ruyisdk/riscv-gnu-toolchain-rv64ilp32/releases) 处直接下载 或 本地构建
 
-直接下载后，即可体验新旧ABI在32位Linux内核上的差异 (s64ilp32 v.s. s32ilp32)
+直接下载后，即可体验同样使用64位系统调用的创新32位内核与传统64位内核
 
     tar zxvf riscv64ilp32-elf-ubuntu-22.04-gcc-nightly-*-nightly.tar.gz
     cd riscv/qemu-linux
-    ./start-qemu-rv64ilp32.sh rootfs.ext2 (测试创新32位Linux内核)
-    ./start-qemu-rv32ilp32.sh rootfs.ext2 (测试传统32位Linux内核)
-
-基于RV64ILP32工具链构建的新32位Linux内核，ramdisk-fio 提升 40%，loopback-iperf3 提升 15%
+    ./start-qemu-rv64.sh  Image_rv64ilp32 u32ilp32_rootfs.ext2(测试创新32位Linux内核)
+    ./start-qemu-rv64.sh  Image_rv64lp64  u32ilp32_rootfs.ext2(测试传统64位Linux内核）
+通过free -h查看内存占用
 
 内核下载: https://github.com/ruyisdk/linux-xuantie-kernel/actions
     

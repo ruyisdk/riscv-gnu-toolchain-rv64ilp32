@@ -44,7 +44,7 @@ jobs:
       - name: build toolchain
         run: |
           TARGET_TUPLE=($(echo ${{ matrix.target }} | tr "-" "\n"))
-          BUILD_TOOLCHAIN="./configure --prefix=/opt/riscv --with-arch=${TARGET_TUPLE[0]} --with-abi=${TARGET_TUPLE[1]} --enable-qemu-system"
+          BUILD_TOOLCHAIN="./configure --prefix=/opt/riscv --with-arch=rv64gc --with-abi=lp64d --with-multilib-generator="rv64gc-ilp32d--" --enable-qemu-system"
           if [ "${{ matrix.compiler }}" == "llvm" ]; then # build toolchain with llvm
             $BUILD_TOOLCHAIN --enable-llvm
           else
@@ -69,7 +69,7 @@ jobs:
           export CROSS_COMPILE=riscv64-unknown-elf-
           export PATH=/opt/riscv/bin:$PATH
           ${CROSS_COMPILE}gcc -v
-          ${CROSS_COMPILE}gcc -o demo qemu-linux/hello_world.c
+          ${CROSS_COMPILE}gcc -march=rv64gc -mabi=ilp32d -o demo qemu-linux/hello_world.c
           sudo mkdir -p /opt/riscv/qemu-linux/
           sudo cp -v demo /opt/riscv/qemu-linux/
           # Test the demo

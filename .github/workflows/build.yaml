@@ -103,7 +103,7 @@ jobs:
             *)
               MODE="elf";;
           esac
-          echo "TOOLCHAIN_NAME=riscv$BITS-$MODE-${{ matrix.os }}-${{ matrix.compiler }}-nightly" >> $GITHUB_OUTPUT
+          echo "TOOLCHAIN_NAME=riscv64-$MODE-${{ matrix.os }}-${{ matrix.compiler }}-nightly" >> $GITHUB_OUTPUT
 
       - uses: actions/upload-artifact@v4
         with:
